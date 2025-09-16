@@ -1,6 +1,9 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from .models import Skill, UserProfile, Category, Project, Offer, Review
-from .serializers import SkillSerializers, UserProfileSerializers,CategorySerializers, ProjectSerializers, OfferSerializers, ReviewSerializers
+from .serializers import SkillSerializers, UserProfileSerializers, CategorySerializers, ProjectListSerializers, ProjectDetailSerializers, OfferSerializers, ReviewSerializers
+from django_filters.rest_framework import DjangoFilterBackend
+from .filter import ProjectFilter
+from rest_framework.filters import SearchFilter
 
 
 class SkillViewSet(viewsets.ModelViewSet):
@@ -18,9 +21,17 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializers
 
 
-class ProjectViewSet(viewsets.ModelViewSet):
+class ProjectListAPIView(generics.ListAPIView):
     queryset = Project.objects.all()
-    serializer_class = ProjectSerializers
+    serializer_class = ProjectListSerializers
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_class = ProjectFilter
+    search_fields = ['title', 'category']
+
+
+class ProjectDetailAPIView(generics.RetrieveAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectDetailSerializers
 
 
 class OfferViewSet(viewsets.ModelViewSet):

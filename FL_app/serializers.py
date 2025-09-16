@@ -20,10 +20,16 @@ class CategorySerializers(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ProjectSerializers(serializers.ModelSerializer):
+class ProjectListSerializers(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = '__all__'
+        fields = ['id', 'title', 'budget',]
+
+
+class ProjectDetailSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ['id', 'title', 'budget', 'category', 'description', 'deadline', 'status', 'skills_required', 'client']
 
 
 class OfferSerializers(serializers.ModelSerializer):

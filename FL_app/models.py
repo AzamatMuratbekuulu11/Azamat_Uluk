@@ -6,6 +6,9 @@ from phonenumber_field.modelfields import PhoneNumberField
 class Skill(models.Model):
     skill_name = models.CharField(max_length=32, unique=True)
 
+    def __str__(self):
+        return self.skill_name
+
 
 class UserProfile(AbstractUser):
     phone_number = PhoneNumberField(null=True, blank=True)
