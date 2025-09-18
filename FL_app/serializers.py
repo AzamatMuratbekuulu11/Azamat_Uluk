@@ -8,10 +8,16 @@ class SkillSerializers(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class UserProfileSerializers(serializers.ModelSerializer):
+class UserProfileListSerializers(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = '__all__'
+        fields = ['id', 'first_name', 'last_name', 'avatar']
+
+
+class UserProfileDetailSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ['first_name', 'last_name', 'avatar', 'phone_number', 'bio', 'role', 'skills', 'social_links']
 
 
 class CategorySerializers(serializers.ModelSerializer):

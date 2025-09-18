@@ -53,7 +53,7 @@ class Project(models.Model):
     status = models.CharField(choices=SATUS_CHOICES, default='open', max_length=32)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     skills_required = models.ManyToManyField(Skill, blank=True)
-    client = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    client = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='client')
 
     def __str__(self):
         return f'{self.title}, {self.budget}'
